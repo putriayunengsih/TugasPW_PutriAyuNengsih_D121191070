@@ -1,9 +1,15 @@
 <?php
+session_start();
+
+if (!isset($_SESSION['$login'])) {
+  header("Location: login.php");
+  exit;
+}
 
 require 'functions.php';
 
-if (isset($_POST['Tambah'])) {
-  if (Tambah($_POST) > 0) {
+if (isset($_POST['tambah'])) {
+  if (tambah($_POST) > 0) {
     echo "<script> 
                     alert('data berhasil ditambahkan'); 
                     document.location.href = 'index.php';

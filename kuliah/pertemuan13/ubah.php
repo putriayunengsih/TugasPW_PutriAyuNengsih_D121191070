@@ -1,4 +1,10 @@
 <?php
+session_start();
+
+if (!isset($_SESSION['$login'])) {
+  header("Location: login.php");
+  exit;
+}
 
 require 'functions.php';
 
@@ -31,37 +37,39 @@ if (isset($_POST['Ubah'])) {
 
 <body>
   <h3>Form Ubah Data Mahasiswa</h3>
-  <form action="" method="POST">
+  <form action="" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="id" required value="<?= $m['id']; ?>">
     <ul>
       <li>
+        <input type="hidden" name="gambar_lama" value="<?= $m['gambar']; ?>">
+        <img src="img/<?= $m['gambar']; ?>" alt="" width="120" style="display: block;" class="img-preview">
         <label>
-          Gambar :
-          <input type="text" name="gambar" required value="<?= $m['gambar']; ?>">
+          gambar :
+          <input type="file" name="gambar" class="gambar" onchange="previewImage()">
         </label>
       </li>
       <li>
         <label>
-          Nama :
-          <input type="text" name="nama" autofocus required value="<?= $m['nama']; ?>">
+          nama :
+          <input type="text" name="nama" autofocus required autocomplete="off" value="<?= $m['nama']; ?>">
         </label>
       </li>
       <li>
         <label>
-          Nim :
-          <input type="text" name="nrp" required value="<?= $m['nrp']; ?>">
+          nrp :
+          <input type="text" name="nrp" required autocomplete="off" value="<?= $m['nrp']; ?>">
         </label>
       </li>
       <li>
         <label>
-          Email :
-          <input type="text" name="email" required value="<?= $m['email']; ?>">
+          email :
+          <input type="text" name="email" required autocomplete="off" value="<?= $m['email']; ?>">
         </label>
       </li>
       <li>
         <label>
-          Departemen :
-          <input type="text" name="jurusan" required value="<?= $m['jurusan']; ?>">
+          jurusan :
+          <input type="text" name="jurusan" autocomplete="off" required value="<?= $m['jurusan']; ?>">
         </label>
       </li>
 
@@ -70,6 +78,8 @@ if (isset($_POST['Ubah'])) {
       </li>
     </ul>
   </form>
+
+  <script src="js/script.js"></script>
 </body>
 
 </html>

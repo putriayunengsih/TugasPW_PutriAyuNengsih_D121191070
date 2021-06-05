@@ -1,4 +1,10 @@
 <?php
+session_start();
+
+if (!isset($_SESSION['$login'])) {
+  header("Location: login.php");
+  exit;
+}
 
 require 'functions.php';
 
@@ -6,8 +12,8 @@ $id = $_GET['id'];
 
 $m = query("SELECT * FROM mahasiswa WHERE id = $id");
 
-if (isset($_POST['Ubah'])) {
-  if (Ubah($_POST) > 0) {
+if (isset($_POST['ubah'])) {
+  if (ubah($_POST) > 0) {
     echo "<script>
             alert('Data berhasil diubah');
             document.location.href = 'index.php';
@@ -32,12 +38,12 @@ if (isset($_POST['Ubah'])) {
 <body>
   <h3>Form Ubah Data Mahasiswa</h3>
   <form action="" method="POST">
-    <input type="hidden" name="id" required value="<?= $m['id']; ?>">
+    <input type="hidden" name="Id" required value="<?= $m['Id']; ?>">
     <ul>
       <li>
         <label>
           Gambar :
-          <input type="text" name="gambar" required value="<?= $m['gambar']; ?>">
+          <input type="text" name="Gambar" required value="<?= $m['Gambar']; ?>">
         </label>
       </li>
       <li>
@@ -48,7 +54,7 @@ if (isset($_POST['Ubah'])) {
       </li>
       <li>
         <label>
-          Nim :
+          NRP :
           <input type="text" name="nrp" required value="<?= $m['nrp']; ?>">
         </label>
       </li>
@@ -60,7 +66,7 @@ if (isset($_POST['Ubah'])) {
       </li>
       <li>
         <label>
-          Departemen :
+          Jurusan :
           <input type="text" name="jurusan" required value="<?= $m['jurusan']; ?>">
         </label>
       </li>
